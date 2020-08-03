@@ -13,7 +13,3 @@ manager.spawn();
 manager.on("shardCreate", shard => {
 	console.log(`Launching shard #${shard.id}`);
 });
-
-setInterval(() => {
-	manager.broadcastEval("_.bot.channels.cache.get(_.data.notify.errors).send('test lol')");
-}, 5000);
