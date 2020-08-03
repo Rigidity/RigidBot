@@ -23,13 +23,13 @@ _.data = {
 	support: "https://discord.gg/MbX6VMA",
 	invite: "https://discord.com/api/oauth2/authorize?client_id=678517622400221234&permissions=8&scope=bot",
 	notify: {
-		message: "737895431891058773",
-		botAdd: "737895038226399302",
-		botRemove: "737895038226399302",
-		userJoin: "737895333488492544",
-		userLeave: "737895333488492544",
-		support: "737895535393898536",
-		errors: "739737195539333192"
+		message: "739922832842293300",
+		botAdd: "739922770535645204",
+		botRemove: "739922770535645204",
+		userJoin: "739922803901464709",
+		userLeave: "739922803901464709",
+		support: "739922731297931265",
+		errors: "739922865138434098"
 	},
 	statusIndex: 0,
 	statusDelay: 8000,
