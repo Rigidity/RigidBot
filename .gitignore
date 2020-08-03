@@ -1,0 +1,9 @@
+/node_modules
+/backups
+/data
+.vsls.json
+*.sh
+RigidBot.code-workspace
+tokens.json
+/prod
+/dev/icons
