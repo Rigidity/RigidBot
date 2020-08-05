@@ -1,8 +1,8 @@
 _.commands.push(new _.Command({
-	name: ["auto", "autos", "autorole", "autoroles"],
-	perm: "MANAGE_ROLES",
+	name: ["autoroles", "autos", "autorole", "auto"],
+	perm: "config.autoroles",
 	info: "Manages the server's automatic roles.",
-	type: "Utilities",
+	type: "Configuration",
 	run: async $ => {
 		const user = $.data.auto_roles.user === null ? null : $.guild.roles.cache.get($.data.auto_roles.user);
 		const bot = $.data.auto_roles.bot === null ? null : $.guild.roles.cache.get($.data.auto_roles.bot);
@@ -36,7 +36,7 @@ _.commands.push(new _.Command({
 			if (type != "user" && type != "bot") {
 				return $.no("Unknown Type", "That is an invalid automatic role type. The types available are `user` and `bot`.");
 			}
-			if (!$.perm("MANAGE_ROLES", $.me)) {
+			if (!$.localperm("MANAGE_ROLES")) {
 				return $.no("Permission Error", "This bot does not have permission to manage roles. This must be fixed before managing the automatic roles.");
 			}
 			const role = _.utils.convert.role($.args.slice(1).join(" "), $.guild);
@@ -48,7 +48,7 @@ _.commands.push(new _.Command({
 					$.data.auto_roles.user = null;
 					$.yes("User Autorole", `This guild's automatic user role has been unset.`);
 				} else {
-					if ($.me.roles.highest.comparePositionTo(role) <= 0) {
+					if (!_.utils.perms.ensureRanking($.me.roles.highest, role)) {
 						return $.no("Permission Error", "This bot does not have permission to manage that role. It is higher on the role hierarchy.");
 					}
 					$.data.auto_roles.user = role.id;
@@ -59,7 +59,7 @@ _.commands.push(new _.Command({
 					$.data.auto_roles.bot = null;
 					$.yes("Bot Autorole", `This guild's automatic bot role has been unset.`);
 				} else {
-					if ($.me.roles.highest.comparePositionTo(role) <= 0) {
+					if (!_.utils.perms.ensureRanking($.me.roles.highest, role)) {
 						return $.no("Permission Error", "This bot does not have permission to manage that role. It is higher on the role hierarchy.");
 					}
 					$.data.auto_roles.bot = role.id;

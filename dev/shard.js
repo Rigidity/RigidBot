@@ -45,7 +45,8 @@ _.utils = {};
 const utils = [
 	"object", "embed",
 	"data", "guild",
-	"user", "convert"
+	"user", "convert",
+	"perms"
 ];
 const events = [
 	"ready", "command",
@@ -53,10 +54,11 @@ const events = [
 	"reaction", "welcome"
 ];
 const commands = [
-	"help", "auto",
+	"help", "autoroles",
 	"prefix", "eval",
 	"cleverbot", "translate",
-	"react", "purge"
+	"reactionroles", "purge",
+	"permissions"
 ];
 utils.forEach(util => require(`./utils/${util}`));
 events.forEach(event => require(`./events/${event}`));

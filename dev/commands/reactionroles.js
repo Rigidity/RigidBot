@@ -1,8 +1,8 @@
 _.commands.push(new _.Command({
-	name: ["react", "reaction", "reactionroles", "reactroles"],
-	perm: ["MANAGE_ROLES", "MANAGE_REACTIONS"],
+	name: ["reactionroles", "react", "reaction", "reactroles"],
+	perm: "config.reactionroles",
 	info: "Manages the server's reaction roles.",
-	type: "Utilities",
+	type: "Configuration",
 	run: async $ => {
 		const data = $.data.reaction_roles;
 		const cid = data.active_channel;
@@ -103,7 +103,7 @@ _.commands.push(new _.Command({
 			$.yes("Bound Channel", "You have successfully bound a channel to this command.");
 		} else if ($.args.length > 1 && $.args[0].toLowerCase() == "new") {
 			if (boundchannel()) return;
-			if (!$.perm("SEND_MESSAGES", $.me)) {
+			if (!$.localperm("SEND_MESSAGES")) {
 				return $.no("Permission Denied", "This bot does not have permission to send messages in that channel.");
 			}
 			const msg = await channel.send($.text.slice(3).trim());
@@ -113,7 +113,7 @@ _.commands.push(new _.Command({
 			}
 		} else if ($.args.length > 1 && $.args[0].toLowerCase() == "edit") {
 			if (boundmessage()) return;
-			if (!$.perm("SEND_MESSAGES", $.me)) {
+			if (!$.localperm("SEND_MESSAGES")) {
 				return $.no("Permission Denied", "This bot does not have permission to send messages in that channel.");
 			}
 			if (message.author.id != $.me.user.id) {
@@ -135,10 +135,10 @@ _.commands.push(new _.Command({
 			}
 			$.info("Reaction Roles", items.join("\n"));
 		} else if ($.args.length == 3 && $.args[0].toLowerCase() == "add") {
-			if (!$.perm("MANAGE_ROLES", $.me)) {
+			if (!$.localperm("MANAGE_ROLES")) {
 				return $.no("Permission Error", "This bot does not have permission to manage roles. This must be fixed before managing the reaction roles.");
 			}
-			if (!$.perm("ADD_REACTIONS", $.me)) {
+			if (!$.localperm("ADD_REACTIONS")) {
 				return $.no("Permission Error", "This bot does not have permission to add reactions in this channel. This must be fixed before managing the reaction roles.");
 			}
 			ensuremessage();
@@ -154,7 +154,7 @@ _.commands.push(new _.Command({
 			if (role == null) {
 				return $.no("Unknown Role", "That role does not exist on this server.");
 			}
-			if ($.me.roles.highest.comparePositionTo(role) <= 0) {
+			if (!_.utils.perms.ensureRanking($.me.roles.highest, role)) {
 				return $.no("Permission Error", "This bot does not have permission to manage that role. It is higher on the role hierarchy.");
 			}
 			msg[typeof emoji == "string" ? emoji : emoji.id] = role.id;

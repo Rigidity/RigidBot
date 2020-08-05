@@ -10,6 +10,11 @@ _.utils.guild = {
 			auto_roles: {
 				user: null,
 				bot: null
+			},
+			permissions: {
+				roles: {},
+				users: {},
+				builtins: {}
 			}
 		});
 	}

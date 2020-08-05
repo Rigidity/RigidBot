@@ -41,7 +41,7 @@ _.utils.embed = {
 		}, data));
 	},
 	setupMenu: async (channel, menu) => {
-		const message = await channel.send(...menu.content);
+		const message = await channel.send(menu.content);
 		_.data.menus[message.id] = menu;
 		for (const emoji of Object.keys(menu.buttons)) {
 			await message.react(emoji);

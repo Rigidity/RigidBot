@@ -41,5 +41,16 @@ _.utils.object = {
 			target.push(...source);
 		}
 		return _.utils.object.mergeConcat(target, ...sources);
+	},
+	splitPages: (array, size) => {
+		let res = [];
+		for (var i = 0; i < array.length; i++) {
+			if (!res.length) res.push([]);
+			res[res.length - 1].push(array[i]);
+			if (res[res.length - 1].length >= size) {
+				res.push([]);
+			}
+		}
+		return res;
 	}
 }

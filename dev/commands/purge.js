@@ -2,9 +2,9 @@ _.commands.push(new _.Command({
 	name: ["purge", "clear", "bulkdelete", "bulkdel"],
 	type: "Moderation",
 	info: "Clears messages in bulk.",
-	perm: "MANAGE_MESSAGES",
+	perm: "moderation.purge",
 	run: async $ => {
-		if (!$.perm("MANAGE_MESSAGES", $.me)) {
+		if (!$.localperm("MANAGE_MESSAGES")) {
 			return $.no("Permission Error", "This bot does not have the `MANAGE_MESSAGES` permission.");
 		}
 		if (!$.args.length) {
