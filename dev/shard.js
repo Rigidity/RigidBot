@@ -28,8 +28,7 @@ _.data = {
 		botRemove: "739922770535645204",
 		userJoin: "739922803901464709",
 		userLeave: "739922803901464709",
-		support: "739922731297931265",
-		errors: "739922865138434098"
+		support: "739922731297931265"
 	},
 	statusIndex: 0,
 	statusDelay: 8000,
@@ -46,16 +45,18 @@ _.utils = {};
 const utils = [
 	"object", "embed",
 	"data", "guild",
-	"user", "parse"
+	"user", "convert"
 ];
 const events = [
 	"ready", "command",
-	"menus", "notify"
+	"menus", "notify",
+	"reaction", "welcome"
 ];
 const commands = [
-	"help", "test",
+	"help", "auto",
 	"prefix", "eval",
-	"cleverbot", "translate"
+	"cleverbot", "translate",
+	"react", "purge"
 ];
 utils.forEach(util => require(`./utils/${util}`));
 events.forEach(event => require(`./events/${event}`));

@@ -13,7 +13,7 @@ _.utils.data = {
 		const data = file in files ? files[file] : {};
 		const path = _.path.join(_.data.directory, "..", "data", _.mode, file + ".json");
 		_.fs.ensureFileSync(path);
-		_.fs.writeFileSync(path, JSON.stringify(data, null, 2), "utf8");
+		_.fs.writeFileSync(path, JSON.stringify(data, null, "\t"), "utf8");
 		return data;
 	},
 	fetch: file => {

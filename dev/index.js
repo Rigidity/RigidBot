@@ -5,7 +5,8 @@ const token = require("../tokens.json")[process.argv[2]];
 
 // Sharding Manager
 const manager = new ShardingManager("./shard.js", {
-	token, shardArgs: process.argv.slice(2)
+	token, shardArgs: process.argv.slice(2),
+	respawn: false
 });
 
 // Setup Sharding

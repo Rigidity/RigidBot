@@ -53,20 +53,14 @@ _.bot.on("message", async msg => {
 						return msg.channel.send(_.utils.embed.no("Permission Denied", `In order to execute this command, you need the following permissions.\n${requires.map(item => "`" + item + "`").join(" ")}`));
 					}
 				}
-				let args;
-				if (command.format === null) {
-					args = text.split(/ +/);
-					if (args.length == 1 && !args[0].length) {
-						args.length = 0;
-					}
-				} else {
-					try {
-						args = _.utils.parse.params(text, command.format);
-					} catch(error) {
-						return msg.channel.send(_.utils.embed.no("Formatting Error", error.message))
-					}
+				const args = text.split(/ +/);
+				const argtext = [];
+				let argcontent = text;
+				for (var i = 0; i < args.length; i++) {
+					argcontent = argcontent.slice(args[i].length).trim();
+					argtext.push(argcontent);
 				}
-				const $ = {name, args};
+				const $ = {name, args, argtext, text};
 				$.message = msg;
 				$.mid = msg.id;
 				$.user = msg.author;
@@ -75,7 +69,6 @@ _.bot.on("message", async msg => {
 				$.channel = msg.channel;
 				$.cid = msg.channel.id;
 				$.scope = scope;
-				$.text = text;
 				$.send = (...content) => msg.channel.send(...content);
 				$.yes = (...args) => $.send(_.utils.embed.yes(...args));
 				$.no = (...args) => $.send(_.utils.embed.no(...args));
@@ -100,11 +93,10 @@ _.bot.on("message", async msg => {
 					}
 				}));
 				$.data = data;
-				if ($.scope) {
-					$.guild = msg.guild;
-					$.gid = msg.guild.id;
-				} // fix permissions
-				$.perm = perm => scope ? msg.channel.permissionsFor(msg.member).has(perm) : true;
+				$.guild = msg.guild;
+				$.gid = msg.guild?.id;
+				$.me = msg.guild?.me;
+				$.perm = (perm, member = msg.member) => scope ? msg.channel.permissionsFor(member).has(perm) : false;
 				$.time = Date.now();
 				$.root = root;
 				await command.run($);

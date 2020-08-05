@@ -4,7 +4,9 @@ _.commands.push(new _.Command({
 	info: "Clears messages in bulk.",
 	perm: "MANAGE_MESSAGES",
 	run: async $ => {
-		if (!$)
+		if (!$.perm("MANAGE_MESSAGES", $.me)) {
+			return $.no("Permission Error", "This bot does not have the `MANAGE_MESSAGES` permission.");
+		}
 		if (!$.args.length) {
 			return $.no("Invalid Usage", "You must specify a number of messages to clear.");
 		}
@@ -12,7 +14,7 @@ _.commands.push(new _.Command({
 		if (isNaN(number)) {
 			return $.no("Invalid Format", "That is not a valid number of messages.");
 		}
-		if (Math.floor(number) != null) {
+		if (Math.floor(number) != number) {
 			return $.no("Invalid Format", "You cannot clear a fractional amount of messages.");
 		}
 		if (number < 2) {
@@ -20,6 +22,15 @@ _.commands.push(new _.Command({
 		}
 		if (number > 100) {
 			return $.no("Invalid Format", "You may not clear more than a hundred messages.");
+		}
+		try {
+			await $.channel.bulkDelete(number);
+			const message = await $.yes("Purge Complete", `You have successfully deleted ${number} messages in this channel.`);
+			message.delete({
+				timeout: 2500
+			});
+		} catch {
+			$.no("Purge Error", `Could not delete ${number} messages in this channel.`);
 		}
 	}
 }));

@@ -122,8 +122,3 @@ _.bot.on("guildMemberRemove", async member => {
 		}
 	}));
 });
-process.on("unhandledRejection", error => {
-	const channel = _.bot.channels.cache.get(_.data.notify.errors);
-	const text = "" + error;
-	channel.send(_.utils.embed.no("Bot Error", text.length > 2048 ? (text.slice(0, 2045) + "...") : text));
-});
