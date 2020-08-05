@@ -2,9 +2,25 @@
 > RigidBot is a general purpose Discord bot, with many features that are designed to be more customizable than other bots out there, and some features that aren't on any bot to date. While this takes time, we release updates extremely frequently to constantly make new and exciting things available to the users of the bot.
 
 ## Planning
-> Purge Command  
 > Bot Advertising  
-> Improve Eval  
+> Finish Permissions  
+> Default Permissions  
+> Poll Command  
+> User Info Command  
+> Guild Info Command  
+> Finish Notifications  
+> More Permissions  
+> Permission Help  
+> Channel Whitelist/Blacklist  
+> Command Whitelist/Blacklist  
+> Permission Whitelist/Blacklist  
+> Experience System  
+> Rank Command  
+> Auto-Moderation System  
+> Chat Filter  
+> Invite Filter  
+> Spam Filter  
+> Link Filter  
 
 ## Structure
 ### Management Layer (index.js)

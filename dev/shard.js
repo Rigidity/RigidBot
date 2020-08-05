@@ -64,6 +64,15 @@ utils.forEach(util => require(`./utils/${util}`));
 events.forEach(event => require(`./events/${event}`));
 commands.forEach(command => require(`./commands/${command}`));
 
+// Maybe Should Be Restricted?
+_.activePermissions = [
+	"config.prefix",
+	"config.autoroles",
+	"config.reactionroles",
+	"config.permissions",
+	"moderation.purge"
+];
+
 // Bot Setup
 _.bot.login(_.token);
 _.utils.data.interval(1000);
